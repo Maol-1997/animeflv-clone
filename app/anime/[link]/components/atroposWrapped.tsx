@@ -1,9 +1,9 @@
 // @ts-nocheck
 'use client'
-import Atropos from 'myatropos/react'
+import Atropos from 'atropos/react'
 import styles from '../Anime.module.css'
 import Image from 'next/image'
-import 'myatropos/atropos.css'
+import 'atropos/css/min'
 export default function AtroposWrapped (params:string) {
   const animeId = params.animeId
   return (

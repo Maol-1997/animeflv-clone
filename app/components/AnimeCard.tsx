@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Atropos from 'myatropos/react'
-import 'myatropos/atropos.css'
+import Atropos from 'atropos/react'
+import 'atropos/css/min'
 import Image from 'next/image'
 import styles from './AnimeCard.module.css'
 
