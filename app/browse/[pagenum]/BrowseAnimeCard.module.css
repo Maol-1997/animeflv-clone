@@ -2,16 +2,18 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 200px));
     grid-gap: 10px;
-    justify-content: center;
+    justify-content: space-between;
 }
 .grid > a {
     text-decoration: none;
+}
+.grid > a:hover {
+
 }
 .imageContainer {
     display: flex;
     flex-direction: column;
     border-radius: 4px;
-    padding: 0.5rem;
     background-color: transparent;
     position: relative;
     overflow: hidden;
@@ -21,12 +23,13 @@
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
+    border: 3px solid #086ef4;
 }
 
 .textContainer {
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 0 0.5rem;
+    padding: 0.5rem;
     text-align: center;
 
 }
