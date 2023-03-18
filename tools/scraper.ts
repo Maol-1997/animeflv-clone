@@ -41,7 +41,7 @@ async function getVideo (link) {
       return await zippyShare(link, downloadLink, 'new')
     }
   } catch (e) {
-    console.log('error zippyshare')
+    console.log('error zippyshare', e)
   }
   try {
     const scripts = $('script')
@@ -55,7 +55,7 @@ async function getVideo (link) {
       return await stape(link, STAPE.code, 'new')
     }
   } catch (e) {
-    console.log('error streamtape')
+    console.log('error streamtape', e)
   }
   return ''
 }
@@ -66,7 +66,7 @@ async function getAnimeEpisodes (link) {
   if (anime && anime.date + 1000 * 60 * 60 > Date.now()) {
     return {
       animeInfo: anime.animeInfo,
-      episodes: anime.episodes,
+      episodes: anime.episodes.length,
       description: anime.description,
       listAnimeRel: anime.listAnmRel
     }
@@ -90,7 +90,7 @@ async function getAnimeEpisodes (link) {
   const newAnime = {
     link,
     date: Date.now(),
-    episodes,
+    episodes: episodes.length,
     animeInfo,
     description,
     listAnmRel
@@ -112,13 +112,21 @@ async function zippyShare (link, downloadLink, option) {
   if (!zippyText.includes('File does not exist')) {
     const $zippy = cheerio.load(zippyText)
     const zippyScripts = $zippy('script').toArray().find((script) => {
-      return $zippy(script).html().includes('href = "/d/')
+      return $zippy(script).html().includes('dlbutton') && $zippy(script).html().includes('.mp4')
     })
-    let zippyLink = ($zippy(zippyScripts).html().split('href = "')[1].split('.mp4')[0] + '.mp4').split('/')
+    const scriptHtml = $zippy(zippyScripts).html()/* let zippyLink = (scriptHtml.split('href = "')[1].split('.mp4')[0] + '.mp4').split('/')
     // eslint-disable-next-line no-eval
     zippyLink[zippyLink.length - 2] = eval(zippyLink[zippyLink.length - 2].split('(')[1].split(')')[0])
     zippyLink = zippyLink.join('/')
-    zippyLink = downloadLink.split('/v/')[0] + zippyLink // revisar porque a veces hace mal el calculo y hace redirect
+    zippyLink = downloadLink.split('/v/')[0] + zippyLink // revisar porque a veces hace mal el calculo y hace redirect */
+    const omg1 = parseInt(scriptHtml.split('document.getElementById(\'dlbutton\').omg = ')[1].split('%')[0])
+    const omg2 = parseInt(scriptHtml.split('document.getElementById(\'dlbutton\').omg = ')[1].split('%')[1].split(';')[0])
+    const omg = parseInt(omg1 % omg2)
+    const b1 = parseInt(scriptHtml.split('var b = parseInt(document.getElementById(\'dlbutton\').omg) * (')[1].split('%')[0])
+    const b2 = parseInt(scriptHtml.split('var b = parseInt(document.getElementById(\'dlbutton\').omg) * (')[1].split('%')[1].split(')')[0])
+    const b = omg * parseInt(b1 % b2)
+    const link = '/d/' + scriptHtml.split('= "/d/')[1].split('"')[0] + (b + 18) + scriptHtml.split('+(b+18)+"')[1].split('";')[0]
+    const zippyLink = downloadLink.split('/v/')[0] + link
 
     const newVideo = {
       link,
