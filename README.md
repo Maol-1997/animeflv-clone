@@ -43,4 +43,4 @@ Abre [http://localhost:3000](http://localhost:3000) con tu navegador para ver el
 
 ### Preview
 
-![](https://github.com/Maol-commits/Animeflv-Clone/raw/main/images/mockup.png)
+![](https://github.com/Maol-commits/Animeflv-Clone/raw/main/media/mockup.png)
