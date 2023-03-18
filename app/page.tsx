@@ -7,8 +7,6 @@ export default async function Home () {
     title: string,
     episode: string
   }[] = await fetch(process.env.HOST + '/api/latestEpisodes', { next: { revalidate: 300 }, cache: 'no-store' }).then((res) => res.json())
-
-  console.log(anime)
   return (
     <AnimeGrid anime={anime} />
   )
