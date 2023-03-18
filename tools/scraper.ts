@@ -32,24 +32,32 @@ async function getVideo (link) {
   // -----------------
   const htmlData = await fetch('https://www3.animeflv.net/ver/' + link).then((res) => res.text())
   const $ = cheerio.load(htmlData)
+  try {
   // download link from zippyshare
-  const downloadLink = $('.Button.Sm.fa-download').map((_, el) => {
-    return $(el).attr('href')
-  }).get().find((link) => link.includes('zippyshare'))
-  if (downloadLink) {
-    return await zippyShare(link, downloadLink, 'new')
+    const downloadLink = $('.Button.Sm.fa-download').map((_, el) => {
+      return $(el).attr('href')
+    }).get().find((link) => link.includes('zippyshare'))
+    if (downloadLink) {
+      return await zippyShare(link, downloadLink, 'new')
+    }
+  } catch (e) {
+    console.log('error zippyshare')
   }
-
-  const scripts = $('script')
-  const videoScript = scripts.toArray().find((script) => {
-    return $(script).html()?.includes('var videos =')
-  })
-  const videoScriptHtml = $(videoScript).html()
-  const videos = JSON.parse(videoScriptHtml?.split('var videos = ')[1].split(';')[0] || '[]')
-  const STAPE = videos.SUB.find(v => v.server === 'stape')
-  if (STAPE) {
-    return await stape(link, STAPE.code, 'new')
+  try {
+    const scripts = $('script')
+    const videoScript = scripts.toArray().find((script) => {
+      return $(script).html()?.includes('var videos =')
+    })
+    const videoScriptHtml = $(videoScript).html()
+    const videos = JSON.parse(videoScriptHtml?.split('var videos = ')[1].split(';')[0] || '[]')
+    const STAPE = videos.SUB.find(v => v.server === 'stape')
+    if (STAPE) {
+      return await stape(link, STAPE.code, 'new')
+    }
+  } catch (e) {
+    console.log('error streamtape')
   }
+  return ''
 }
 
 async function getAnimeEpisodes (link) {
