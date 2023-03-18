@@ -63,3 +63,9 @@ body {
 }
 .atropos-active .atropos-banner-text {
 }
+
+@media screen and (max-width: 575px) {
+    .atr-helper *:not(a) {
+        pointer-events: none;
+    }
+}

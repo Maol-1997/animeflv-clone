@@ -1,5 +1,6 @@
 // @ts-nocheck
 import AnimeGrid from './components/AnimeGrid'
+
 export default async function Home () {
   const anime: {
     link: string,

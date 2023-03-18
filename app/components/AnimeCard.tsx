@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Atropos from 'atropos/react'
-import 'atropos/css/min'
 import Image from 'next/image'
 import styles from './AnimeCard.module.css'
+import 'atropos/css/min'
 
 export default function AnimeCard ({ anime }: { anime: { link: string, img: string, title: string, episode: string } }) {
   // if screen width is less than 768px, isActive is false
