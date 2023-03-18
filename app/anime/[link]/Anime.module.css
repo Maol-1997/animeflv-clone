@@ -69,4 +69,7 @@
     #anime_page > *:last-child {
         width: 100%;
     }
+    #anime_page > * {
+        margin: 1rem 0;
+    }
 }

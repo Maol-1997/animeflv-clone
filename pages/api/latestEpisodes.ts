@@ -47,8 +47,8 @@ export default async function handler (
 
 async function preCheck (latestEpisodes: Data[]) {
   for (let i = 0; i < latestEpisodes.length; i++) {
-    console.log('checking episode', i)
     const link = latestEpisodes[i].link?.replace('/ver/', '')
+    console.log('checking episode', link, i)
     await getVideo(link)
   }
 }
