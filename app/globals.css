@@ -64,6 +64,14 @@ body {
 .atropos-active .atropos-banner-text {
 }
 
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #1CDDFE;
+    border-radius: 10px;
+}
+
 @media screen and (max-width: 575px) {
     .atr-helper *:not(a) {
         pointer-events: none;

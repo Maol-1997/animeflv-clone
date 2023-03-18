@@ -1,5 +1,5 @@
 # TODO:
-* embedded del anime con plyr o stape o zippyshare (a decidir)
+✔︎ embedded del anime con plyr o stape o zippyshare (a decidir)
 * boton para subir el capitulo al servidor propio
 * base de datos (mongodb)
 * **front end (decidir diseño)**
