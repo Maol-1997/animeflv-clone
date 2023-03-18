@@ -1,0 +1,11 @@
+#atropos > span > span::after {
+    content: "";
+    position: absolute;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    top: -5px;
+    background: #086ef4;
+    z-index: -1;
+    border-radius: 12px;
+}

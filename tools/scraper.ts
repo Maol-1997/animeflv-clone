@@ -6,6 +6,8 @@ import fs from 'fs'
 let videoDB
 let animeDB
 
+const browseAnimes = []
+
 let browser
 
 async function getVideo (link) {
@@ -146,4 +148,28 @@ async function stape (link, codeUrl, option) {
   return newVideo.lastResolvedUrl
 }
 
-export { getVideo, getAnimeEpisodes }
+async function browse (page) {
+  if (page < 1) {
+    page = 1
+  }
+  const alreadyVisited = browseAnimes.find(a => a.page === page)
+  if (alreadyVisited && alreadyVisited.lastUpdate + 1000 * 60 * 60 > Date.now()) {
+    browseAnimes[browseAnimes.indexOf(alreadyVisited)] = { ...alreadyVisited, lastUpdate: Date.now() }
+    return alreadyVisited.list
+  }
+
+  const htmlData = await fetch('https://www3.animeflv.net/browse' + (page ? '?page=' + page : '')).then((res) => res.text())
+  const $ = cheerio.load(htmlData)
+  const anime = $('.Anime.alt.B')
+  const list = anime.map((_, el) => {
+    const title = $(el).find('.Title').text()
+    const link = $(el).find('a').attr('href').split('/anime/')[1]
+    const img = $(el).find('img').attr('src')
+    const description = $(el).find('.Description p').last().text()
+    return { title, link, img, description }
+  }).get()
+  browseAnimes.push({ page, list, lastUpdate: Date.now() })
+  return list
+}
+
+export { getVideo, getAnimeEpisodes, browse }

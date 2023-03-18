@@ -53,7 +53,7 @@ export default function NavBar () {
             </Nav.Item>
 
             <Nav.Item>
-              <Link href='/browse' onClick={() => updateExpanded(false)} className='linksText'>
+              <Link href='/browse/1' onClick={() => updateExpanded(false)} className='linksText'>
                 Directorio Anime
               </Link>
             </Nav.Item>
