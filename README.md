@@ -32,6 +32,7 @@ Inicie el servidor
 npm run dev
 ```
 Para iniciar el servidor en modo producción
+editar el archivo .env.production y cambiar la variable de entorno HOST a la dirección del servidor donde se va a desplegar la aplicación.
 ```bash
 npm run build
 npm run start
