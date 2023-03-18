@@ -15,7 +15,7 @@ async function getVideo (link) {
   videoDB = JSON.parse(fs.readFileSync('./tools/mediaLinks.json', 'utf8'))
   const video = videoDB.find(v => v.link === link)
   if (video && video.date + 1000 * 60 * 60 * 24 > Date.now()) {
-    if (video.lastResolvedDate + 1000 * 5 > Date.now()) {
+    if (video.lastResolvedDate + 1000 * 60 * 5 > Date.now()) {
       return video.lastResolvedUrl
     }
     if (video.url.includes('zippy')) {
