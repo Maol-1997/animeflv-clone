@@ -63,6 +63,52 @@
     color: #18181B;
     border: 1px solid #1CDDFE;
 }
+.animeContainer {
+    position: relative;
+}
+
+.popup{
+    z-index: 5;
+    display: none;
+    position: absolute;
+    color: white;
+    font-size: 0.9rem;
+    background-color: #3A4247;
+    height: fit-content;
+    width: 25rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #086ef4;
+    padding: 1rem;
+    left: 10rem;
+    top: -1rem;
+    opacity: 0.9;
+}
+.imageContainer::before {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(1,188,243,.5);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.animeContainer:hover .imageContainer::before {
+    opacity: 1;
+}
+
+@media screen and (min-width: 768px) {
+    .animeContainer:hover .popup{
+        display: inherit;
+    }
+}
+
+
 
 
 @media (max-width: 457px) {
