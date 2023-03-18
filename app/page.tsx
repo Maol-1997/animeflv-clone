@@ -1,91 +1,45 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+// @ts-nocheck
+'use client'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import { useState, useEffect } from 'react'
+import AnimeCard from './components/AnimeCard'
 
-const inter = Inter({ subsets: ['latin'] })
+export default function Home () {
+  const [anime, setAnime] = useState([])
+  useEffect(() => {
+    fetch('/api/latestEpisodes').then((res) => res.json()).then((data) => {
+      setAnime(data)
+    })
+  }, [])
 
-export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Container fluid className='home-section' id='home'>
+      <Container className='home-content'>
+        <Row>
+          {anime.length > 0 && anime.map((a) => (
+            <Col key={'col-' + a.link} md={3}>
+              <AnimeCard key={a.link} anime={a} />
+            </Col>
+          ))}
+        </Row>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
+        {/*
+          <Col md={3} style={{ paddingBottom: 20 }}>
+            <img src='/logo.png' alt='logo' className='img-fluid' />
+          </Col>
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <Col md={3} style={{ paddingBottom: 20 }}>
+            <strong>asdasda</strong>
+          </Col>
+          <Col md={3} style={{ paddingBottom: 20 }}>
+            <strong>asdasda</strong>
+          </Col>
+          <Col md={3} style={{ paddingBottom: 20 }}>
+            <strong>asdasda</strong>
+          </Col> */}
+      </Container>
+    </Container>
   )
 }

@@ -1,0 +1,131 @@
+.sticky {
+    background-color: #252525;
+    transition: all 0.3s ease-out 0s;
+    box-shadow: 0 10px 10px 0 rgba(9, 5, 29, 0.171);
+    backdrop-filter: blur(15px);
+}
+
+.navbar {
+    background-color: #252525;
+    position: fixed;
+    transition: all 0.3s ease-out 0s;
+    padding: 0.3rem 2rem;
+    font-size: 1.2rem;
+}
+
+.navbar-toggler {
+    position: relative;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.navbar-toggler span {
+    display: block;
+    height: 4px;
+    width: 27px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transform: rotate(0deg);
+    left: 0;
+    opacity: 1;
+    background-color: #fff;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: 0;
+}
+
+.navbar-toggler span:nth-child(1),
+.navbar-toggler span:nth-child(3) {
+    transition: transform 0.35s ease-in-out;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transform: rotate(135deg);
+    opacity: 0.9;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+    height: 12px;
+    visibility: hidden;
+    background-color: transparent;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transform: rotate(-135deg);
+    opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+    .navbar {
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+        background-color: #181a27;
+    }
+
+    .navbar-nav .nav-item a::after {
+        display: none;
+    }
+}
+
+.navbar-brand {
+    color: rgb(250, 250, 250);
+}
+
+.logo {
+    height: auto;
+    width: auto;
+    max-width: 142px;
+    max-height: 46px;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.nav-link {
+    padding: 0.8rem 1rem;
+}
+
+@media (max-width: 767px) {
+    .nav-link {
+        padding: 0.7rem 1rem;
+    }
+}
+
+.navbar-nav .nav-item {
+    position: relative;
+    margin-left: 20px;
+}
+
+.navbar-nav .nav-item a {
+    font-weight: 400;
+    transition: all 0.3s ease-out 0s;
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    color: #929292
+}
+
+.navbar-nav .nav-item a:hover {
+    color: #fff;
+}
+
+
+.navbar-nav .nav-item a:hover::after {
+    width: 100%;
+}
+
+.linksText {
+    text-decoration: none;
+    font-family: open sans,sans-serif;
+}

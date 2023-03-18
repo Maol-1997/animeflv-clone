@@ -1,0 +1,20 @@
+{
+  "name": "myatropos",
+  "version": "0.0.0",
+  "types": "atropos.d.ts",
+  "type": "module",
+  "exports": {
+    ".": "./esm/atropos.esm.js",
+    "./esm": "./react/atropos.esm.js",
+    "./esm/browser": "./react/atropos.esm.browser.js",
+    "./esm/browser/min": "./react/atropos.esm.browser.min.js",
+    "./react": "./react/atropos-react.esm.js",
+    "./vue": "./react/atropos-vue.esm.js",
+    "./atropos.js": "./atropos.js",
+    "./atropos.min.js": "./atropos.min.js",
+    "./atropos.css": "./atropos.css",
+    "./atropos.min.css": "./atropos.min.css",
+    "./atropos.less": "./atropos.less",
+    "./atropos.scss": "./atropos.scss"
+  }
+}

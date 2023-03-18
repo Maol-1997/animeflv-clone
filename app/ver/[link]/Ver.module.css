@@ -1,0 +1,13 @@
+#videoContainer {
+    display: grid;
+    margin: 3rem auto;
+    width: 60vw;
+
+}
+
+#videoDescription {
+    background-color: #262627;
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 0.9rem;;
+}
