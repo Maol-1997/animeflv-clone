@@ -9,7 +9,7 @@ import ownStyles from './BrowseAnimeCard.module.css'
 export default function AnimeCard ({ anime }) {
   return (
     <div className='atr-container atr-helper'>
-      <Link href={anime.link}>
+      <Link href={'/anime/' + anime.link}>
         <Atropos className='atropos-banner' highlight={false} id={ownStyles.atropos}>
           <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
             <Image className='atropos-banner-spacer' src={anime.img} alt='' width={300} height={200} style={{ borderRadius: '12px' }} />
