@@ -98,13 +98,12 @@
     border-radius: 4px;
 }
 
-.animeContainer:hover .imageContainer::before {
-    opacity: 1;
-}
-
 @media screen and (min-width: 768px) {
     .animeContainer:hover .popup{
         display: inherit;
+    }
+    .animeContainer:hover .imageContainer::before {
+        opacity: 1;
     }
 }
 
