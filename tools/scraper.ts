@@ -15,13 +15,13 @@ async function getVideo (link) {
   videoDB = JSON.parse(fs.readFileSync('./tools/mediaLinks.json', 'utf8'))
   const video = videoDB.find(v => v.link === link)
   if (video && video.date + 1000 * 60 * 60 * 24 > Date.now()) {
-    if (video.lastResolvedDate + 1000 * 60 * 5 > Date.now()) {
+    if (video.lastResolvedDate + 1000 * 5 > Date.now()) {
       return video.lastResolvedUrl
     }
     if (video.url.includes('zippy')) {
-      return await zippyShare(link, video.url)
+      return await zippyShare(link, video.url, 'update')
     }
-    if (video.url.includes('stape')) {
+    if (video.url.includes('streamtape')) {
       return await stape(link, video.url, 'update')
     }
   }
@@ -119,7 +119,7 @@ async function stape (link, codeUrl, option) {
   })
   await page.close()
   const resolvedUrl = await fetch(url).then((res) => res.url)
-  const newVideo = { link, url, date: Date.now(), lastResolvedUrl: resolvedUrl, lastResolvedDate: Date.now() }
+  const newVideo = { link, url: codeUrl, date: Date.now(), lastResolvedUrl: resolvedUrl, lastResolvedDate: Date.now() }
   if (option === 'update') {
     const index = videoDB.findIndex(v => v.link === link)
     videoDB[index] = newVideo

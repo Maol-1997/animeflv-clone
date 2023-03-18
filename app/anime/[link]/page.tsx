@@ -1,51 +1,43 @@
-'use client'
-import { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
+// @ts-nocheck
 import styles from './Anime.module.css'
-import Atropos from 'myatropos/react'
-import 'myatropos/atropos.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import Container from './components/containerWrapped'
+import Atropos from './components/atroposWrapped'
 
-export default function AnimePage ({ params }: { params: { link: string } }) {
+export default async function AnimePage ({ params }: { params: { link: string }}) {
   const { link } = params
-  const [anime, setAnime] = useState({ animeInfo: [], episodes: [] })
-  useEffect(() => {
-    fetch('/api/anime/' + link).then((res) => res.json()).then((data) => {
-      setAnime(data)
-    })
-  }, [link])
 
-  const title = anime.animeInfo.length ? anime.animeInfo[1] : ''
+  const anime:{ animeInfo: [][], episodes: [] } = await fetch(process.env.HOST + '/api/anime/' + link).then((res) => res.json())
+
+  const title = anime.animeInfo[1]
+  const animeId = anime.animeInfo[0]
   return (
     <Container fluid style={{ marginTop: '150px' }}>
       <Container id={styles.anime_page}>
-        <div>
-          <Atropos className='atropos-banner' highlight id={styles.atropos}>
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
-              <Image className='atropos-banner-spacer' src={'https://www3.animeflv.net/uploads/animes/covers/' + anime.animeInfo[0] + '.jpg'} alt='' width={300} height={200} style={{ borderRadius: '12px' }} />
-              <Image data-atropos-offset='-4.5' src={'https://www3.animeflv.net/uploads/animes/covers/' + anime.animeInfo[0] + '.jpg'} alt='' width={300} height={200} style={{ borderRadius: '12px' }} />
-            </div>
-          </Atropos>
-        </div>
+        <Atropos animeId={animeId} />
         <div>
           <h3>{title || 'Title'}</h3>
-          <Container>
-            <div>
-              <h4 style={{ marginTop: '50px' }}>Episodios</h4>
-              <div style={{ border: '1px solid #01B5D5', width: 'fit-content', padding: '0 5px', borderRadius: '12px' }}>
-                {anime.episodes.map((episode) => (
-                  <Link key={episode[0]} href={'/ver/' + link + '-' + episode[0]} style={{ textDecoration: 'none' }}>
+          <div id={styles.box}>
+            <h4>Lista de episodios</h4>
+            <div id={styles.episodes} style={{ padding: '0 5px', borderRadius: '12px', margin: '0 auto' }}>
+              <div style={{ width: '100%', height: '1px', backgroundColor: '#666666', margin: '10px 0' }} />
+              {anime.episodes.map((episode) => (
+                <div key={episode[0]}>
+                  <Link href={'/ver/' + link + '-' + episode[0]} style={{ textDecoration: 'none', display: 'flex', position: 'relative', alignItems: 'center', color: '#01B5D5', padding: '5px 0' }}>
+                    <Image src={'https://cdn.animeflv.net/screenshots/' + anime.animeInfo[0] + '/' + episode[0] + '/th_3.jpg'} alt='' width={110} height={60} style={{ borderRadius: '3px', objectFit: 'cover', marginRight: '15px' }} />
                     <div className={styles.epText}>
                       <span>{title}</span>
                       <br />
                       <span>Episodio {episode[0]}</span>
                     </div>
                   </Link>
-                ))}
-              </div>
+                  <div style={{ width: '100%', height: '1px', backgroundColor: '#01B5D5' }} />
+
+                </div>
+              ))}
             </div>
-          </Container>
+          </div>
         </div>
       </Container>
     </Container>

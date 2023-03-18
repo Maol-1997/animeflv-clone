@@ -9,14 +9,15 @@
 
 #anime_page > *:first-child {
     width: 30%;
+    align-self: center;
+    margin: 70px 10px;
 }
 
 #anime_page > *:last-child {
-    width: 70%;
+    width: 65%;
 }
 
 #atropos {
-    width: 75%;
     margin: 0 auto;
 }
 
@@ -33,7 +34,6 @@
 }
 
 .epText {
-    border-bottom: 1px solid #01B5D5;
     width: fit-content;
 }
 
@@ -43,4 +43,30 @@
 
 .epText:hover > * {
     color: #01B5D5;
+}
+
+#box {
+    background-color: #353535;
+    padding: 10px;
+    border-radius: 12px;
+    margin-top: 1rem;
+    width: 100%;
+}
+#episodes{
+    overflow-y: scroll;
+    min-height: fit-content;
+    max-height: 500px;
+}
+
+@media screen and (max-width: 768px) {
+    #anime_page {
+        flex-direction: column;
+    }
+    #anime_page > *:first-child {
+        width: 90%;
+        margin: 10px 0;
+    }
+    #anime_page > *:last-child {
+        width: 100%;
+    }
 }
