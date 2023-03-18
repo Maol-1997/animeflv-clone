@@ -38,4 +38,5 @@ next-env.d.ts
 /.idea
 /.vscode
 
-/tools/db.json
+/tools/animeDB.json
+/tools/mediaLinks.json
