@@ -7,6 +7,7 @@ let videoDB
 let animeDB
 
 const browseAnimes = []
+let pageMaxId = 0
 
 let browser
 
@@ -155,7 +156,7 @@ async function browse (page) {
   const alreadyVisited = browseAnimes.find(a => a.page === page)
   if (alreadyVisited && alreadyVisited.lastUpdate + 1000 * 60 * 60 > Date.now()) {
     browseAnimes[browseAnimes.indexOf(alreadyVisited)] = { ...alreadyVisited, lastUpdate: Date.now() }
-    return alreadyVisited.list
+    return { list: alreadyVisited.list, pages: alreadyVisited.pageMaxId }
   }
 
   const htmlData = await fetch('https://www3.animeflv.net/browse' + (page ? '?page=' + page : '')).then((res) => res.text())
@@ -168,8 +169,11 @@ async function browse (page) {
     const description = $(el).find('.Description p').last().text()
     return { title, link, img, description }
   }).get()
-  browseAnimes.push({ page, list, lastUpdate: Date.now() })
-  return list
+  // pageMaxId = .pagination li a size-2
+  pageMaxId = $('.pagination li a')
+  pageMaxId = pageMaxId[pageMaxId.length - 2].children[0].data
+  browseAnimes.push({ page, list, lastUpdate: Date.now(), pageMaxId })
+  return { list, pages: pageMaxId }
 }
 
 export { getVideo, getAnimeEpisodes, browse }

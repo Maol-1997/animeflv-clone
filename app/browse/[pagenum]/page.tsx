@@ -9,6 +9,6 @@ export default async function Browse ({ params }: { params: { page: string } }) 
     episode: string
   }[] = await fetch(process.env.HOST + '/api/browse' + (page ? '?page=' + page : ''), { next: { revalidate: 300 }, cache: 'no-store' }).then((res) => res.json())
   return (
-    <BrowseGrid anime={anime} />
+    <BrowseGrid anime={anime} page={page} />
   )
 }
