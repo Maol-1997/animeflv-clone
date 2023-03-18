@@ -7,6 +7,7 @@ let videoDB
 let animeDB
 
 let browser
+
 async function getVideo (link) {
   if (!browser) {
     browser = await firefox.launch()
@@ -52,7 +53,12 @@ async function getAnimeEpisodes (link) {
   animeDB = JSON.parse(fs.readFileSync('./tools/animeDB.json', 'utf8'))
   const anime = animeDB.find(a => a.link === link)
   if (anime && anime.date + 1000 * 60 * 60 > Date.now()) {
-    return { animeInfo: anime.animeInfo, episodes: anime.episodes, description: anime.description, listAnimeRel: anime.listAnmRel }
+    return {
+      animeInfo: anime.animeInfo,
+      episodes: anime.episodes,
+      description: anime.description,
+      listAnimeRel: anime.listAnmRel
+    }
   }
   const htmlData = await fetch('https://www3.animeflv.net/anime/' + link).then((res) => res.text())
   const $ = cheerio.load(htmlData)
@@ -139,4 +145,5 @@ async function stape (link, codeUrl, option) {
   fs.writeFileSync('./tools/mediaLinks.json', JSON.stringify(videoDB))
   return newVideo.lastResolvedUrl
 }
+
 export { getVideo, getAnimeEpisodes }

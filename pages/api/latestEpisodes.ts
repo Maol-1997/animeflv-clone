@@ -16,7 +16,7 @@ export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse<Data[]>
 ) {
-  if (Date.now() > lastTime + 1000 * 60 * 5) {
+  if (Date.now() > lastTime + 1000 * 60 * 5) { // force cache of 5 min
     lastTime = Date.now()
     const htmlData = await fetch('https://animeflv.net').then((res) => res.text())
     const $ = cheerio.load(htmlData)
