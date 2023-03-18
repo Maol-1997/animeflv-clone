@@ -3,7 +3,7 @@
  * Touch-friendly 3D parallax hover effects
  * https://atroposjs.com
  *
- * Copyright 2021-2022 
+ * Copyright 2021-2022
  *
  * Released under the MIT License
  *
@@ -94,4 +94,11 @@
 }
 [data-atropos-offset][data-atropos-opacity] {
   transition-property: transform, opacity;
+}
+
+
+@media screen and (max-width: 575px) {
+  .atr-helper *:not(a) {
+    pointer-events: none;
+  }
 }

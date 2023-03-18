@@ -5,8 +5,9 @@ import Image from 'next/image'
 import styles from './AnimeCard.module.css'
 
 export default function AnimeCard ({ anime }: { anime: { link: string, img: string, title: string, episode: string } }) {
+  // if screen width is less than 768px, isActive is false
   return (
-    <div className='atr-container'>
+    <div className='atr-container atr-helper'>
       <Link href={anime.link}>
         <Atropos className='atropos-banner' highlight={false}>
           <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
