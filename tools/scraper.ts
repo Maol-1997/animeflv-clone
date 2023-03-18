@@ -162,7 +162,7 @@ async function browse (page) {
   const $ = cheerio.load(htmlData)
   const anime = $('.Anime.alt.B')
   const list = anime.map((_, el) => {
-    const title = $(el).find('.Title').text()
+    const title = $(el).find('.Title').last().text()
     const link = $(el).find('a').attr('href').split('/anime/')[1]
     const img = $(el).find('img').attr('src')
     const description = $(el).find('.Description p').last().text()

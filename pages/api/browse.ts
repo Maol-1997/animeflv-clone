@@ -6,7 +6,6 @@ export default async function handler (
   res: NextApiResponse<{}>
 ) {
   const { page } = req.query
-  console.log(page)
   const anime = await browse(page as string)
   res.status(200).json(anime)
   // res.status(200).json({ url: lastResolvedUrl })
