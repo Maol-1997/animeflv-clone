@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as cheerio from 'cheerio'
-import getVideo from '../../tools/videoScraper'
+import { getVideo } from '../../tools/scraper'
 
 let lastTime = Date.now() - 1000 * 60 * 5 // 5 min ago
 type Data = {
@@ -36,7 +36,8 @@ export default async function handler (
         }
       })
       .get()
-    if (JSON.stringify(lastResult) !== JSON.stringify(latestEpisodes)) {
+    // @ts-ignore
+    if (JSON.stringify(lastResult.sort((a, b) => a.link - b.link)) !== JSON.stringify(latestEpisodes.sort((a, b) => a.link - b.link))) {
       lastResult = latestEpisodes
       preCheck(latestEpisodes)
     }

@@ -1,0 +1,46 @@
+#anime_page {
+    display: flex;
+    flex-direction: row;
+}
+
+#anime_page > * {
+    margin: 1rem;
+}
+
+#anime_page > *:first-child {
+    width: 30%;
+}
+
+#anime_page > *:last-child {
+    width: 70%;
+}
+
+#atropos {
+    width: 75%;
+    margin: 0 auto;
+}
+
+#atropos > span > span::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    top: -6px;
+    background: #086ef4;
+    z-index: -1;
+    border-radius: 12px;
+}
+
+.epText {
+    border-bottom: 1px solid #01B5D5;
+    width: fit-content;
+}
+
+.epText > *:last-child {
+    font-size: 0.9rem;
+}
+
+.epText:hover > * {
+    color: #01B5D5;
+}

@@ -1,13 +1,11 @@
 .container{
     padding: 0 1rem;
-    /*el texto dentro del container debe tener overflow ellipsis*/
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 18em;
 }
 .container:hover{
-    /*al pasar el mouse sobre el container, se debe mostrar el texto completo*/
     overflow: visible;
     text-overflow: unset;
     white-space: unset;
@@ -19,7 +17,6 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
     font-family: open sans,sans-serif;
-    /*text border*/
     text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000,
     1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
     text-overflow: ellipsis;

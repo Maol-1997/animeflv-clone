@@ -1,6 +1,8 @@
 // ts-nocheck
 import type { NextApiRequest, NextApiResponse } from 'next'
-import getVideo from '../../../tools/videoScraper'
+// @ts-ignore
+import request from 'request'
+import { getVideo } from '../../../tools/scraper'
 type Data = {
     url: string
 }
@@ -9,6 +11,9 @@ export default async function handler (
   res: NextApiResponse<Data>
 ) {
   const { link } = req.query
-  const video = await getVideo(link as string)
-  res.status(200).json({ url: video })
+  const lastResolvedUrl = await getVideo(link as string)
+  req.pipe(request.get(lastResolvedUrl/*, {
+    rejectUnauthorized: false
+  } */)).pipe(res)
+  // res.status(200).json({ url: lastResolvedUrl })
 }

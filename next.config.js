@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true
   },
+  api: {
+    responseLimit: false
+  },
   images: {
     domains: ['www3.animeflv.net'],
     remotePatterns: [

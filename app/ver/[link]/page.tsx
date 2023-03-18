@@ -1,19 +1,20 @@
 // @ts-nocheck
 'use client'
-import { useEffect, useState } from 'react'
 import Plyr from 'plyr-react'
 import 'plyr-react/plyr.css'
 import styles from './Ver.module.css'
+import Link from 'next/link'
+import Container from 'react-bootstrap/Container'
+import { useEffect, useState } from 'react'
 
 export default function VerPage ({ params }: { params: { link: string } }) {
   const { link } = params
-  const [videoInfo, setVideoInfo] = useState()
+  const [nextPage, setNextPage] = useState(false)
   useEffect(() => {
-    if (link) {
-      fetch(`/api/ver/${link}`).then((res) => res.json()).then((data) => {
-        setVideoInfo(data)
-      })
-    }
+    const episode = link.split('-').slice(-1)[0]
+    fetch('/api/anime/' + link.replace('-' + episode, '')).then((res) => res.json()).then((data) => {
+      setNextPage(data.episodes.length > Number(episode))
+    })
   }, [link])
 
   const plyrProps = {
@@ -21,7 +22,7 @@ export default function VerPage ({ params }: { params: { link: string } }) {
       type: 'video',
       sources: [
         {
-          src: videoInfo?.url,
+          src: '/api/ver/' + link,
           type: 'video/mp4'
         }
       ]
@@ -35,14 +36,28 @@ export default function VerPage ({ params }: { params: { link: string } }) {
   const episode = link.split('-').slice(-1)[0]
 
   return (
-    <div id={styles.videoContainer}>
-      <div style={{ color: '#F1F1F1' }}>
-        <h3>{title}</h3>
-        <h6 style={{ color: '#666666' }}>Episodio {episode}</h6>
-      </div>
-      <div key='plyr'>
-        <Plyr {...plyrProps} />
-      </div>
-    </div>
+    <Container fluid className='home-section'>
+      <Container className='home-content'>
+        <div style={{ color: '#F1F1F1' }}>
+          <h3>{title}</h3>
+          <h6 key='ep' style={{ color: '#666666' }}>Episodio {episode}</h6>
+        </div>
+        <div key='plyr'>
+          <Plyr {...plyrProps} />
+        </div>
+        <div className={styles.buttons}>
+          <Link href={'/ver/' + link.split('-').slice(0, -1).join('-') + '-' + (parseInt(episode) - 1)}>
+            Anterior
+          </Link>
+          {/* next link is disabled by default */}
+          <Link href={'/ver/' + link.split('-').slice(0, -1).join('-') + '-' + (parseInt(episode) + 1)} {...(nextPage ? {} : { style: { pointerEvents: 'none', opacity: '0.5' } })}>
+            Siguiente
+          </Link>
+          <Link href={'/anime/' + link.split('-').slice(0, -1).join('-')}>
+            Lista de episodios
+          </Link>
+        </div>
+      </Container>
+    </Container>
   )
 }

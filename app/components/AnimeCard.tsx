@@ -26,16 +26,4 @@ export default function AnimeCard ({ anime }: { anime: { link: string, img: stri
       </Link>
     </div>
   )
-
-  /* return (
-    <div className={styles.videoCard}>
-      <Link href={anime.link}>
-        <Image src={'https://www3.animeflv.net' + anime.img} alt='img' width={300} height={200} />
-      </Link>
-      <div className={styles.videoCard__info}>
-        <h3>{anime.title}</h3>
-        <h5>{anime.episode}</h5>
-      </div>
-    </div>
-  ) */
 }

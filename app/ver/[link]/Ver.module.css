@@ -2,7 +2,6 @@
     display: grid;
     margin: 3rem auto;
     width: 60vw;
-
 }
 
 #videoDescription {
@@ -10,4 +9,33 @@
     border-radius: 4px;
     padding: 1rem;
     font-size: 0.9rem;;
+}
+
+.buttons{
+    display: flex;
+    margin-top: 1rem;
+}
+.buttons > * {
+    padding: 0.5rem 1rem;
+    border: 1px solid #262627;
+    background-color: #262627;
+    color: #1CDDFE;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+/*first and last child with border radius in left or right*/
+.buttons > *:first-child {
+    border-radius: 99999px 0 0 99999px;
+}
+.buttons > *:last-child {
+    border-radius: 0 99999px 99999px 0;
+}
+
+.buttons > *:hover {
+    background-color: #01B5D5;
+    color: #18181B;
+    border: 1px solid #1CDDFE;
 }
