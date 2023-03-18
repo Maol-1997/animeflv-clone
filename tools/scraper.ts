@@ -66,7 +66,7 @@ async function getAnimeEpisodes (link) {
   if (anime && anime.date + 1000 * 60 * 60 > Date.now()) {
     return {
       animeInfo: anime.animeInfo,
-      episodes: anime.episodes.length,
+      episodes: anime.episodes,
       description: anime.description,
       listAnimeRel: anime.listAnmRel
     }
@@ -90,7 +90,7 @@ async function getAnimeEpisodes (link) {
   const newAnime = {
     link,
     date: Date.now(),
-    episodes: episodes.length,
+    episodes,
     animeInfo,
     description,
     listAnmRel
