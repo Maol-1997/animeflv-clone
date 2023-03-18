@@ -176,4 +176,22 @@ async function browse (page) {
   return { list, pages: pageMaxId }
 }
 
-export { getVideo, getAnimeEpisodes, browse }
+async function searchList (search) {
+  const data = await fetch('https://www3.animeflv.net/api/animes/search', {
+    headers: {
+      accept: 'application/json, text/javascript, */*; q=0.01',
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    },
+    body: 'value=' + search,
+    method: 'POST'
+  }).then((res) => res.json())
+  const list = data.map((anime) => {
+    return { title: anime.title, link: anime.slug, img: 'https://www3.animeflv.net/uploads/animes/covers/80x80/' + anime.id + '.jpg' }
+  })
+  if (list.length > 5) {
+    return list.slice(0, 5)
+  }
+  return list
+}
+
+export { getVideo, getAnimeEpisodes, browse, searchList }
