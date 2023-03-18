@@ -13,7 +13,7 @@ export default function VerPage ({ params }: { params: { link: string } }) {
   useEffect(() => {
     const episode = link.split('-').slice(-1)[0]
     fetch('/api/anime/' + link.replace('-' + episode, '')).then((res) => res.json()).then((data) => {
-      setNextPage(data.episodes > Number(episode))
+      setNextPage(data.episodes.length > Number(episode))
     })
   }, [link])
 
