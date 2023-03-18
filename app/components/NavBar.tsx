@@ -44,7 +44,7 @@ export default function NavBar () {
           <span />
           <span />
         </Navbar.Toggle>
-        <Navbar.Collapse id='responsive-navbar-nav'>
+        <Navbar.Collapse style={{ flex: 'inherit' }}>
           <Nav className='ms-auto' defaultActiveKey='#home'>
             <Nav.Item>
               <Link href='/' onClick={() => updateExpanded(false)} className='linksText'>
