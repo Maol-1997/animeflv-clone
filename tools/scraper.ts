@@ -52,7 +52,7 @@ async function getAnimeEpisodes (link) {
   animeDB = JSON.parse(fs.readFileSync('./tools/animeDB.json', 'utf8'))
   const anime = animeDB.find(a => a.link === link)
   if (anime && anime.date + 1000 * 60 * 60 > Date.now()) {
-    return { animeInfo: anime.animeInfo, episodes: anime.episodes }
+    return { animeInfo: anime.animeInfo, episodes: anime.episodes, description: anime.description, listAnimeRel: anime.listAnmRel }
   }
   const htmlData = await fetch('https://www3.animeflv.net/anime/' + link).then((res) => res.text())
   const $ = cheerio.load(htmlData)
@@ -62,11 +62,21 @@ async function getAnimeEpisodes (link) {
   })
   const animeInfo = JSON.parse(episodesScript?.children[0].data.split('var anime_info = ')[1].split('];')[0] + ']' || '[]')
   const episodes = JSON.parse(episodesScript?.children[0].data.split('var episodes = ')[1].split('];')[0] + ']' || '[]')
+  const description = $('.Description p').text()
+  const listAnmRel = $('.ListAnmRel li').map((_, el) => {
+    return {
+      title: $(el).last().text(),
+      link: $(el).find('a').attr('href').split('/anime/')[1]
+    }
+  }).get()
+
   const newAnime = {
     link,
     date: Date.now(),
     episodes,
-    animeInfo
+    animeInfo,
+    description,
+    listAnmRel
   }
   const index = animeDB.findIndex(a => a.link === link)
   if (index !== -1) {
@@ -76,7 +86,7 @@ async function getAnimeEpisodes (link) {
   }
   fs.writeFileSync('./tools/animeDB.json', JSON.stringify(animeDB))
 
-  return { animeInfo, episodes }
+  return { animeInfo, episodes, description, listAnimeRel: listAnmRel }
 }
 
 async function zippyShare (link, downloadLink, option) {

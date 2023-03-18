@@ -9,7 +9,6 @@
 
 #anime_page > *:first-child {
     width: 30%;
-    align-self: center;
     margin: 70px 10px;
 }
 
@@ -63,7 +62,7 @@
         flex-direction: column;
     }
     #anime_page > *:first-child {
-        width: 90%;
+        width: 100%;
         margin: 10px 0;
     }
     #anime_page > *:last-child {
