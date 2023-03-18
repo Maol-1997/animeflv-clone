@@ -46,7 +46,7 @@ export default function VerPage ({ params }: { params: { link: string } }) {
           <Plyr {...plyrProps} />
         </div>
         <div className={styles.buttons}>
-          <Link href={'/ver/' + link.split('-').slice(0, -1).join('-') + '-' + (parseInt(episode) - 1)}>
+          <Link href={'/ver/' + link.split('-').slice(0, -1).join('-') + '-' + (parseInt(episode) - 1)} {...(parseInt(episode) === 1 ? { style: { pointerEvents: 'none', opacity: '0.5' } } : {})}>
             Anterior
           </Link>
           {/* next link is disabled by default */}
