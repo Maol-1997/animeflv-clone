@@ -33,7 +33,6 @@ export default function NavBar () {
         updateSearchOutput(data)
       })
     }, 300)
-    console.log({ searchUserValue, searchOutput })
     return () => clearTimeout(timeout)
   }, [searchUserValue])
 

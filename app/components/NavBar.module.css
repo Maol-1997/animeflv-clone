@@ -127,14 +127,15 @@
 
 .linksText {
     text-decoration: none;
-    font-family: open sans,sans-serif;
+    font-family: open sans, sans-serif;
 }
 
 
 .search {
     position: relative;
 }
-.search > input{
+
+.search > input {
     background-color: #1F1E1F;
     border: none;
     color: #929292;
@@ -145,12 +146,12 @@
     justify-content: center;
 }
 
-.search > input:focus{
+.search > input:focus {
     outline: none;
     background-color: #161717;
 }
 
-.search .searchPopup{
+.search .searchPopup {
     z-index: 5;
     display: none;
     position: absolute;
@@ -167,15 +168,17 @@
     top: 3rem;
     opacity: 0.9;
 }
-.searchPopupText{
+
+.searchPopupText {
     margin: auto;
     padding: 0;
     text-align: center;
-    font-family: open sans,sans-serif;
+    font-family: open sans, sans-serif;
     color: #929292;
     font-size: 0.8rem;
 }
-.searchItem{
+
+.searchItem {
     display: flex;
     align-items: center;
     padding: 0.4rem;
@@ -185,16 +188,16 @@
     border-radius: 0.5rem;
     text-decoration: none;
 }
-.searchItem:hover{
+
+.searchItem:hover {
     background-color: #252525;
 }
-.searchItem:hover .searchPopupText > span{
+
+.searchItem:hover .searchPopupText > span {
     color: #01B5D5;
 }
 
-@media (min-width: 768px) {
-    .search:focus-within > input:not(:placeholder-shown) + .searchPopup{
-        display: flex;
-        flex-direction: column;
-    }
+.search:focus-within > input:not(:placeholder-shown) + .searchPopup {
+    display: flex;
+    flex-direction: column;
 }
