@@ -33,17 +33,6 @@ async function getVideo (link) {
   const htmlData = await fetch('https://www3.animeflv.net/ver/' + link).then((res) => res.text())
   const $ = cheerio.load(htmlData)
   try {
-  // download link from zippyshare
-    const downloadLink = $('.Button.Sm.fa-download').map((_, el) => {
-      return $(el).attr('href')
-    }).get().find((link) => link.includes('zippyshare'))
-    if (downloadLink) {
-      return await zippyShare(link, downloadLink, 'new')
-    }
-  } catch (e) {
-    console.log('error zippyshare', e)
-  }
-  try {
     const scripts = $('script')
     const videoScript = scripts.toArray().find((script) => {
       return $(script).html()?.includes('var videos =')
@@ -56,6 +45,17 @@ async function getVideo (link) {
     }
   } catch (e) {
     console.log('error streamtape', e)
+  }
+  try {
+  // download link from zippyshare
+    const downloadLink = $('.Button.Sm.fa-download').map((_, el) => {
+      return $(el).attr('href')
+    }).get().find((link) => link.includes('zippyshare'))
+    if (downloadLink) {
+      return await zippyShare(link, downloadLink, 'new')
+    }
+  } catch (e) {
+    console.log('error zippyshare', e)
   }
   return ''
 }
