@@ -14,6 +14,10 @@ let browser
 async function getVideo (link) {
   if (!browser) {
     browser = await firefox.launch()
+    browser.on('disconnected', data => {
+      console.log('disconnected', data)
+      browser = await firefox.launch()
+    })
   }
   // check if the video url is already scraped looking in db.json
   videoDB = JSON.parse(fs.readFileSync('./tools/mediaLinks.json', 'utf8'))
