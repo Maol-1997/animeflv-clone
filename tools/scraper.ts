@@ -9,16 +9,7 @@ let animeDB
 const browseAnimes = []
 let pageMaxId = 0
 
-let browser
-
 async function getVideo (link) {
-  if (!browser) {
-    browser = await firefox.launch()
-    browser.on('disconnected', async (data) => {
-      console.log('disconnected', data)
-      browser = await firefox.launch()
-    })
-  }
   // check if the video url is already scraped looking in db.json
   videoDB = JSON.parse(fs.readFileSync('./tools/mediaLinks.json', 'utf8'))
   const video = videoDB.find(v => v.link === link)
@@ -151,12 +142,14 @@ async function zippyShare (link, downloadLink, option) {
 }
 
 async function stape (link, codeUrl, option) {
+  const browser = await firefox.launch()
   const page = await browser.newPage()
   await page.goto(codeUrl)
   const url = await page.evaluate(() => {
     return document.querySelector('video')?.src
   })
   await page.close()
+  await browser.close()
   const resolvedUrl = await fetch(url).then((res) => res.url)
   const newVideo = { link, url: codeUrl, date: Date.now(), lastResolvedUrl: resolvedUrl, lastResolvedDate: Date.now() }
   if (option === 'update') {
