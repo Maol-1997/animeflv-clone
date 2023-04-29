@@ -14,7 +14,7 @@ let browser
 async function getVideo (link) {
   if (!browser) {
     browser = await firefox.launch()
-    browser.on('disconnected', data => {
+    browser.on('disconnected', async (data) => {
       console.log('disconnected', data)
       browser = await firefox.launch()
     })
