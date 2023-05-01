@@ -142,7 +142,7 @@ async function zippyShare (link, downloadLink, option) {
 }
 
 async function stape (link, codeUrl, option) {
-  const browser = await firefox.launch()
+  const browser = await firefox.launch({ headless: true })
   const page = await browser.newPage()
   await page.goto(codeUrl)
   const url = await page.evaluate(() => {
