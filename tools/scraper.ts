@@ -142,14 +142,20 @@ async function zippyShare (link, downloadLink, option) {
 }
 
 async function stape (link, codeUrl, option) {
-  const browser = await firefox.launch({ headless: true })
-  const page = await browser.newPage()
-  await page.goto(codeUrl)
-  const url = await page.evaluate(() => {
-    return document.querySelector('video')?.src
-  })
-  await page.close()
-  await browser.close()
+  let url
+  try {
+    const browser = await firefox.launch({ headless: true })
+    const page = await browser.newPage()
+    await page.goto(codeUrl)
+    url = await page.evaluate(() => {
+      return document.querySelector('video')?.src
+    })
+    await page.close()
+    await browser.close()
+  } catch (e) {
+    console.error(e)
+    return await stape(link, codeUrl, option)
+  }
   const resolvedUrl = await fetch(url).then((res) => res.url)
   const newVideo = { link, url: codeUrl, date: Date.now(), lastResolvedUrl: resolvedUrl, lastResolvedDate: Date.now() }
   if (option === 'update') {
