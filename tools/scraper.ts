@@ -8,6 +8,7 @@ let animeDB
 
 const browseAnimes = []
 let pageMaxId = 0
+let browser
 
 async function getVideo (link) {
   // check if the video url is already scraped looking in db.json
@@ -144,7 +145,8 @@ async function zippyShare (link, downloadLink, option) {
 async function stape (link, codeUrl, option) {
   let url
   try {
-    const browser = await firefox.launch({ headless: true })
+    browser.close()
+    browser = await firefox.launch({ headless: true })
     const page = await browser.newPage()
     await page.goto(codeUrl)
     url = await page.evaluate(() => {
