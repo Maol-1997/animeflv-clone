@@ -145,7 +145,6 @@ async function zippyShare (link, downloadLink, option) {
 async function stape (link, codeUrl, option) {
   let url
   try {
-    browser.close()
     browser = await firefox.launch({ headless: true })
     const page = await browser.newPage()
     await page.goto(codeUrl)
@@ -156,6 +155,7 @@ async function stape (link, codeUrl, option) {
     await browser.close()
   } catch (e) {
     console.error(e)
+    await browser.close()
     return await stape(link, codeUrl, option)
   }
   const resolvedUrl = await fetch(url).then((res) => res.url)
