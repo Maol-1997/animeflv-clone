@@ -155,7 +155,9 @@ async function stape (link, codeUrl, option) {
     await browser.close()
   } catch (e) {
     console.error(e)
-    await browser.close()
+    try {
+      await browser.close()
+    } catch {}
     return await stape(link, codeUrl, option)
   }
   const resolvedUrl = await fetch(url).then((res) => res.url)
