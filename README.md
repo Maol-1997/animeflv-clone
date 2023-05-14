@@ -21,7 +21,7 @@ Si quieren colaborar con el proyecto para practicar, sean libres de hacerlo envi
 ### Instalación
 Clone el repositorio
 ```bash
-git clone https://github.com/Maol-commits/Animeflv-Clone.git
+git clone https://github.com/Maol-1997/Animeflv-Clone.git
 ```
 Instale las dependencias
 ```bash
@@ -43,7 +43,7 @@ Abre [http://localhost:3000](http://localhost:3000) con tu navegador para ver el
 
 ### Preview
 
-![](https://github.com/Maol-commits/Animeflv-Clone/raw/main/media/mockup.png)
+![](https://github.com/Maol-1997/Animeflv-Clone/raw/main/media/mockup.png)
 
 #### Video (click en la imagen)
-[![YoutubeVideoPreview](https://github.com/Maol-commits/Animeflv-Clone/raw/main/media/preview.png)](https://www.youtube.com/watch?v=lHKileByV-c)
+[![YoutubeVideoPreview](https://github.com/Maol-1997/Animeflv-Clone/raw/main/media/preview.png)](https://www.youtube.com/watch?v=lHKileByV-c)
