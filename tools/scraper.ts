@@ -18,6 +18,11 @@ async function getVideo (link) {
     if (video.lastResolvedDate + 1000 * 60 * 5 > Date.now()) {
       return video.lastResolvedUrl
     }
+
+    if (video.url.includes('streamwish')) {
+      return await streamWish(link, video.url, 'update')
+    }
+
     if (video.url.includes('zippy')) {
       return await zippyShare(link, video.url, 'update')
     }
@@ -35,6 +40,10 @@ async function getVideo (link) {
     })
     const videoScriptHtml = $(videoScript).html()
     const videos = JSON.parse(videoScriptHtml?.split('var videos = ')[1].split(';')[0] || '[]')
+    const STREAMWISH = videos.SUB.find(v => v.server === 'sw')
+    if (STREAMWISH) {
+      return await streamWish(link, STREAMWISH.code.replace('/e/', '/f/') + '_h', 'new')
+    }
     const STAPE = videos.SUB.find(v => v.server === 'stape')
     if (STAPE) {
       return await stape(link, STAPE.code, 'new')
@@ -102,6 +111,36 @@ async function getAnimeEpisodes (link) {
   return { animeInfo, episodes, description, listAnimeRel: listAnmRel }
 }
 
+async function streamWish (link, codeUrl, option) {
+  if (!browser) browser = await firefox.launch({ headless: true })
+  console.log({ codeUrl })
+  let url
+  try {
+    const page = await browser.newPage()
+    await page.goto(codeUrl)
+    await page.click('button.g-recaptcha.btn.btn-primary.submit-btn.py-3.px-4.justify-content-start')
+    await page.waitForSelector('.dwnlonk')
+    url = await page.evaluate(() => {
+      return document.querySelector('.dwnlonk').href
+    })
+    await page.close()
+    console.log({ url })
+  } catch (e) {
+    console.error(e)
+    return await streamWish(link, codeUrl, option)
+  }
+
+  const newVideo = { link, url: codeUrl, date: Date.now(), lastResolvedUrl: url, lastResolvedDate: Date.now() }
+  if (option === 'update') {
+    const index = videoDB.findIndex(v => v.link === link)
+    videoDB[index] = newVideo
+  } else {
+    videoDB.push(newVideo)
+  }
+  fs.writeFileSync('./tools/mediaLinks.json', JSON.stringify(videoDB))
+  return newVideo.lastResolvedUrl
+}
+
 async function zippyShare (link, downloadLink, option) {
   const htmlZippy = await fetch(downloadLink)
   const zippyText = await htmlZippy.text()
@@ -143,21 +182,17 @@ async function zippyShare (link, downloadLink, option) {
 }
 
 async function stape (link, codeUrl, option) {
+  if (!browser) browser = await firefox.launch({ headless: true })
   let url
   try {
-    browser = await firefox.launch({ headless: true })
     const page = await browser.newPage()
     await page.goto(codeUrl)
     url = await page.evaluate(() => {
       return document.querySelector('video')?.src
     })
     await page.close()
-    await browser.close()
   } catch (e) {
     console.error(e)
-    try {
-      await browser.close()
-    } catch {}
     return await stape(link, codeUrl, option)
   }
   const resolvedUrl = await fetch(url).then((res) => res.url)
