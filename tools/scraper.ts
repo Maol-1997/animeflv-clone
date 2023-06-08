@@ -18,11 +18,11 @@ async function getVideo (link) {
       return video.lastResolvedUrl
     }
 
-    if (video.url.includes('streamwish')) {
-      return await streamWish(link, video.url, 'update')
-    }
     if (video.url.includes('streamtape')) {
       return await stape(link, video.url, 'update')
+    }
+    if (video.url.includes('streamwish')) {
+      return await streamWish(link, video.url, 'update')
     }
   }
   // -----------------
@@ -132,6 +132,9 @@ async function streamWish (link, codeUrl, option) {
 }
 async function stape (link, codeUrl, option) {
   const browser = await firefox.launch({ headless: true })
+  setTimeout(async () => {
+    await browser.close()
+  }, 1000 * 60)
   let url
   try {
     const page = await browser.newPage()
