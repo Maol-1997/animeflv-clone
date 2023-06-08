@@ -8,7 +8,6 @@ let animeDB
 
 const browseAnimes = []
 let pageMaxId = 0
-let browser
 
 async function getVideo (link) {
   // check if the video url is already scraped looking in db.json
@@ -21,10 +20,6 @@ async function getVideo (link) {
 
     if (video.url.includes('streamwish')) {
       return await streamWish(link, video.url, 'update')
-    }
-
-    if (video.url.includes('zippy')) {
-      return await zippyShare(link, video.url, 'update')
     }
     if (video.url.includes('streamtape')) {
       return await stape(link, video.url, 'update')
@@ -50,17 +45,6 @@ async function getVideo (link) {
     }
   } catch (e) {
     console.log('error streamtape', e)
-  }
-  try {
-  // download link from zippyshare
-    const downloadLink = $('.Button.Sm.fa-download').map((_, el) => {
-      return $(el).attr('href')
-    }).get().find((link) => link.includes('zippyshare'))
-    if (downloadLink) {
-      return await zippyShare(link, downloadLink, 'new')
-    }
-  } catch (e) {
-    console.log('error zippyshare', e)
   }
   return ''
 }
@@ -112,7 +96,11 @@ async function getAnimeEpisodes (link) {
 }
 
 async function streamWish (link, codeUrl, option) {
-  if (!browser) browser = await firefox.launch({ headless: true })
+  const browser = await firefox.launch({ headless: false })
+  // if is not closed after 5 minutes, close it
+  setTimeout(async () => {
+    await browser.close()
+  }, 1000 * 60)
   console.log({ codeUrl })
   let url
   try {
@@ -124,8 +112,10 @@ async function streamWish (link, codeUrl, option) {
       return document.querySelector('.dwnlonk').href
     })
     await page.close()
+    await browser.close()
     console.log({ url })
   } catch (e) {
+    await browser.close()
     console.error(e)
     return await streamWish(link, codeUrl, option)
   }
@@ -140,49 +130,8 @@ async function streamWish (link, codeUrl, option) {
   fs.writeFileSync('./tools/mediaLinks.json', JSON.stringify(videoDB))
   return newVideo.lastResolvedUrl
 }
-
-async function zippyShare (link, downloadLink, option) {
-  const htmlZippy = await fetch(downloadLink)
-  const zippyText = await htmlZippy.text()
-  if (!zippyText.includes('File does not exist')) {
-    const $zippy = cheerio.load(zippyText)
-    const zippyScripts = $zippy('script').toArray().find((script) => {
-      return $zippy(script).html().includes('dlbutton') && $zippy(script).html().includes('.mp4')
-    })
-    const scriptHtml = $zippy(zippyScripts).html()/* let zippyLink = (scriptHtml.split('href = "')[1].split('.mp4')[0] + '.mp4').split('/')
-    // eslint-disable-next-line no-eval
-    zippyLink[zippyLink.length - 2] = eval(zippyLink[zippyLink.length - 2].split('(')[1].split(')')[0])
-    zippyLink = zippyLink.join('/')
-    zippyLink = downloadLink.split('/v/')[0] + zippyLink // revisar porque a veces hace mal el calculo y hace redirect */
-    const omg1 = parseInt(scriptHtml.split('document.getElementById(\'dlbutton\').omg = ')[1].split('%')[0])
-    const omg2 = parseInt(scriptHtml.split('document.getElementById(\'dlbutton\').omg = ')[1].split('%')[1].split(';')[0])
-    const omg = parseInt(omg1 % omg2)
-    const b1 = parseInt(scriptHtml.split('var b = parseInt(document.getElementById(\'dlbutton\').omg) * (')[1].split('%')[0])
-    const b2 = parseInt(scriptHtml.split('var b = parseInt(document.getElementById(\'dlbutton\').omg) * (')[1].split('%')[1].split(')')[0])
-    const b = omg * parseInt(b1 % b2)
-    const link = '/d/' + scriptHtml.split('= "/d/')[1].split('"')[0] + (b + 18) + scriptHtml.split('+(b+18)+"')[1].split('";')[0]
-    const zippyLink = downloadLink.split('/v/')[0] + link
-
-    const newVideo = {
-      link,
-      url: downloadLink,
-      date: Date.now(),
-      lastResolvedUrl: zippyLink,
-      lastResolvedDate: Date.now()
-    }
-    if (option === 'update') {
-      const index = videoDB.findIndex(v => v.link === link)
-      videoDB[index] = newVideo
-    } else {
-      videoDB.push(newVideo)
-    }
-    fs.writeFileSync('./tools/mediaLinks.json', JSON.stringify(videoDB))
-    return zippyLink
-  }
-}
-
 async function stape (link, codeUrl, option) {
-  if (!browser) browser = await firefox.launch({ headless: true })
+  const browser = await firefox.launch({ headless: true })
   let url
   try {
     const page = await browser.newPage()
@@ -191,7 +140,9 @@ async function stape (link, codeUrl, option) {
       return document.querySelector('video')?.src
     })
     await page.close()
+    await browser.close()
   } catch (e) {
+    await browser.close()
     console.error(e)
     return await stape(link, codeUrl, option)
   }
