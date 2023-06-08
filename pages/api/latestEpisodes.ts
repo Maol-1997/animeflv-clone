@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as cheerio from 'cheerio'
-import { getVideo } from '../../tools/scraper'
+// import { getVideo } from '../../tools/scraper'
 
 let lastTime = Date.now() - 1000 * 60 * 5 // 5 min ago
 type Data = {
@@ -45,6 +45,7 @@ export default async function handler (
   res.status(200).json(latestEpisodes)
 }
 
+/*
 async function preCheck (latestEpisodes: Data[]) {
   for (let i = 0; i < latestEpisodes.length; i++) {
     const link = latestEpisodes[i].link?.replace('/ver/', '')
@@ -52,3 +53,4 @@ async function preCheck (latestEpisodes: Data[]) {
     await getVideo(link)
   }
 }
+*/
