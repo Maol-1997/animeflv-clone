@@ -107,7 +107,7 @@ async function streamWish (link, codeUrl, option) {
     const page = await browser.newPage()
     await page.goto(codeUrl)
     await page.click('button.g-recaptcha.btn.btn-primary.submit-btn.py-3.px-4.justify-content-start')
-    await page.waitForSelector('.dwnlonk')
+    await page.waitForSelector('.dwnlonk', { timeout: 10000 })
     url = await page.evaluate(() => {
       return document.querySelector('.dwnlonk').href
     })

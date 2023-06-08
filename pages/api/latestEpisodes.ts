@@ -39,7 +39,7 @@ export default async function handler (
     // @ts-ignore
     if (JSON.stringify(lastResult.sort((a, b) => a.link - b.link)) !== JSON.stringify(latestEpisodes.sort((a, b) => a.link - b.link))) {
       lastResult = latestEpisodes
-      preCheck(latestEpisodes)
+      // preCheck(latestEpisodes)
     }
   }
   res.status(200).json(latestEpisodes)
