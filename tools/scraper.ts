@@ -96,7 +96,7 @@ async function getAnimeEpisodes (link) {
 }
 
 async function streamWish (link, codeUrl, option) {
-  const browser = await firefox.launch({ headless: false })
+  const browser = await firefox.launch({ headless: true })
   // if is not closed after 5 minutes, close it
   setTimeout(async () => {
     await browser.close()
