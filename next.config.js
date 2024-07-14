@@ -1,9 +1,6 @@
 const million = require('million/compiler')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true
-  },
   images: {
     domains: ['www3.animeflv.net', 'cdn.animeflv.net', 'animeflv.net'],
     remotePatterns: [
