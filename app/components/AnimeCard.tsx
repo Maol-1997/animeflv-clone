@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from './AnimeCard.module.css'
 import 'atropos/css/min'
 
-export default function AnimeCard ({ anime }: { anime: { link: string, img: string, title: string, episode: string } }) {
+export default function AnimeCard ({ anime }: { anime: { link: string, img: string, title: string, episode: string[] } }) {
   // if screen width is less than 768px, isActive is false
   return (
     <div className='atr-container atr-helper'>

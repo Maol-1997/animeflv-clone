@@ -9,27 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "13.1.1",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.10",
-    "atropos": "^1.0.2",
-    "bootstrap": "^5.2.3",
+    "@next/font": "14.2.5",
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "atropos": "^2.0.2",
+    "bootstrap": "^5.3.3",
     "cheerio": "1.0.0-rc.12",
-    "eslint": "8.31.0",
-    "eslint-config-next": "13.1.1",
-    "next": "13.1.1",
-    "playwright-firefox": "^1.29.2",
-    "plyr-react": "^5.1.2",
-    "react": "18.2.0",
-    "react-bootstrap": "^2.7.0",
-    "react-dom": "18.2.0",
+    "eslint": "9.7.0",
+    "eslint-config-next": "14.2.5",
+    "million": "3.1.11",
+    "next": "14.2.5",
+    "playwright-firefox": "^1.45.1",
+    "plyr-react": "^5.3.0",
+    "react": "18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "18.3.1",
     "request": "^2.88.2",
-    "sharp": "^0.31.3",
-    "typescript": "4.9.4"
+    "sharp": "^0.33.4",
+    "typescript": "5.5.3"
   },
   "devDependencies": {
-    "sass": "^1.57.1",
-    "standard": "^17.0.0"
+    "sass": "^1.77.8",
+    "standard": "^17.1.0"
   }
 }
