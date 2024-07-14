@@ -83,7 +83,7 @@ export default function NavBar () {
                 <input type='text' className='searchTerm' placeholder='Buscar...' onInput={searchFn} />
                 <div className='searchPopup'>
                   {searchOutput.map((anime: any) => (
-                    <Link key={anime.link} href={'anime/' + anime.link} className='searchItem'>
+                    <Link key={anime.link} href={anime.link} className='searchItem'>
                       <Image src={anime.img} alt='anime-image' width={80} height={80} style={{ width: 'fit-content', height: 'fit-content' }} />
                       <div className='searchPopupText'>
                         <span>{anime.title}</span>
