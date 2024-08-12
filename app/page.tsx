@@ -9,7 +9,7 @@ export default async function Home () {
     img: string,
     title: string,
     episode: string
-  }[] = await fetch(process.env.HOST + '/api/latestEpisodes', { next: { revalidate: 300 }}).then((res) => res.json())
+  }[] = await fetch(process.env.HOST + '/api/latestEpisodes', { next: { revalidate: 300 } }).then((res) => res.json())
   return (
     <AnimeGrid anime={anime} />
   )

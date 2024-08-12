@@ -1,12 +1,13 @@
 import './globals.css'
 import './bootstrap.scss'
 import NavBar from './components/NavBar'
+import type { ReactNode } from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function RootLayout ({
   children
 }: {
-    children: React.ReactNode
+    children: ReactNode;
 }) {
   return (
     <html lang='en'>
