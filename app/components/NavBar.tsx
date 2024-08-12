@@ -6,7 +6,6 @@ import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Styles from '../browse/[pagenum]/BrowseAnimeCard.module.css'
 
 export default function NavBar () {
   const [expand, updateExpanded] = useState(false)
